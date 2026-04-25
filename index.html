@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dent-Master App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+
+    <h1>🦷 Dent-Master</h1>
+    <p>Запись на прием за 10 секунд</p>
+
+    <div class="card">
+        <h3>Выберите время сегодня:</h3>
+        <div class="time-grid">
+            <div class="time-slot" onclick="selectTime('09:00')">09:00</div>
+            <div class="time-slot" onclick="selectTime('11:00')">11:00</div>
+            <div class="time-slot" onclick="selectTime('14:00')">14:00</div>
+            <div class="time-slot" onclick="selectTime('16:00')">16:00</div>
+            <div class="time-slot" onclick="selectTime('18:00')">18:00</div>
+            <div class="time-slot" onclick="selectTime('20:00')">20:00</div>
+        </div>
+        <p class="hint">Нажимая кнопку, вы соглашаетесь с правилами клиники.</p>
+    </div>
+
+    <button class="main-button" onclick="sendData()">ПОДТВЕРДИТЬ ЗАПИСЬ</button>
+
+    <script>
+        // Инициализация Telegram WebApp
+        let tg = window.Telegram.WebApp;
+        tg.expand(); // Развернуть на весь экран
+
+        function selectTime(time) {
+            tg.HapticFeedback.impactOccurred('medium'); // Легкая вибрация при нажатии
+            alert("Выбрано время: " + time);
+        }
+
+        function sendData() {
+            // Тут можно отправить данные обратно в бота
+            tg.close(); 
+        }
+    </script>
+</body>
+</html>
