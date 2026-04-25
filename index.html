@@ -28,18 +28,37 @@
     <button class="main-button" onclick="sendData()">ПОДТВЕРДИТЬ ЗАПИСЬ</button>
 
     <script>
-        // Инициализация Telegram WebApp
+        // 1. Инициализируем Telegram WebApp
         let tg = window.Telegram.WebApp;
-        tg.expand(); // Развернуть на весь экран
-
+        tg.expand(); // Разворачиваем на весь экран
+    
+        let selectedTime = ""; // Сюда будем сохранять выбранное время
+    
+        // 2. Функция для выбора времени (визуальный эффект)
         function selectTime(time) {
-            tg.HapticFeedback.impactOccurred('medium'); // Легкая вибрация при нажатии
-            alert("Выбрано время: " + time);
+            selectedTime = time; // Запоминаем, что выбрал юзер
+            tg.HapticFeedback.impactOccurred('medium'); // Вибрация
+            
+            // Убираем выделение у всех кнопок и добавляем активной
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.style.background = 'var(--tg-theme-bg-color)';
+            });
+            event.target.style.background = 'var(--tg-theme-button-color)';
+            event.target.style.color = 'var(--tg-theme-button-text-color)';
         }
-
+    
+        // 3. ТА САМАЯ ФУНКЦИЯ: отправка данных в бота
         function sendData() {
-            // Тут можно отправить данные обратно в бота
-            tg.close(); 
+            if (selectedTime === "") {
+                alert("Пожалуйста, выберите время!");
+                return;
+            }
+            
+            // Отправляем строку с временем прямо в чат боту
+            tg.sendData(selectedTime); 
+            
+            // Закрываем мини-приложение
+            tg.close();
         }
     </script>
 </body>
