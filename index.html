@@ -2,64 +2,40 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dent-Master App</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
 
-    <h1>🦷 Dent-Master</h1>
-    <p>Запись на прием за 10 секунд</p>
+    <h1>Dent-Master PRO</h1>
+    <p class="subtitle">Ваша идеальная улыбка начинается здесь</p>
+
+    <div class="doctors-row">
+        <div class="doctor-card" onclick="selectDoc('Иванов')">
+            <img src="doc1.jpg" class="doctor-avatar">
+            <p>Др. Иванов</p>
+        </div>
+        <div class="doctor-card" onclick="selectDoc('Петров')">
+            <img src="doc2.jpg" class="doctor-avatar">
+            <p>Др. Петров</p>
+        </div>
+        </div>
 
     <div class="card">
-        <h3>Выберите время сегодня:</h3>
+        <h3>Записаться на сегодня:</h3>
         <div class="time-grid">
-            <div class="time-slot" onclick="selectTime('09:00')">09:00</div>
-            <div class="time-slot" onclick="selectTime('11:00')">11:00</div>
-            <div class="time-slot" onclick="selectTime('14:00')">14:00</div>
-            <div class="time-slot" onclick="selectTime('16:00')">16:00</div>
-            <div class="time-slot" onclick="selectTime('18:00')">18:00</div>
-            <div class="time-slot" onclick="selectTime('20:00')">20:00</div>
+            <div class="time-slot">10:00</div>
+            <div class="time-slot">14:00</div>
+            <div class="time-slot">19:00</div>
         </div>
-        <p class="hint">Нажимая кнопку, вы соглашаетесь с правилами клиники.</p>
     </div>
 
-    <button class="main-button" onclick="sendData()">ПОДТВЕРДИТЬ ЗАПИСЬ</button>
+    <button class="main-button">Записаться в 1 клик</button>
 
     <script>
-        // 1. Инициализируем Telegram WebApp
         let tg = window.Telegram.WebApp;
-        tg.expand(); // Разворачиваем на весь экран
-    
-        let selectedTime = ""; // Сюда будем сохранять выбранное время
-    
-        // 2. Функция для выбора времени (визуальный эффект)
-        function selectTime(time) {
-            selectedTime = time; // Запоминаем, что выбрал юзер
-            tg.HapticFeedback.impactOccurred('medium'); // Вибрация
-            
-            // Убираем выделение у всех кнопок и добавляем активной
-            document.querySelectorAll('.time-slot').forEach(slot => {
-                slot.style.background = 'var(--tg-theme-bg-color)';
-            });
-            event.target.style.background = 'var(--tg-theme-button-color)';
-            event.target.style.color = 'var(--tg-theme-button-text-color)';
-        }
-    
-        // 3. ТА САМАЯ ФУНКЦИЯ: отправка данных в бота
-        function sendData() {
-            if (selectedTime === "") {
-                alert("Пожалуйста, выберите время!");
-                return;
-            }
-            
-            // Отправляем строку с временем прямо в чат боту
-            tg.sendData(selectedTime); 
-            
-            // Закрываем мини-приложение
-            tg.close();
-        }
+        tg.expand();
+        tg.ready();
     </script>
 </body>
 </html>
